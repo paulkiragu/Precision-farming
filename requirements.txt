@@ -1,0 +1,1 @@
+# Root requirements - use backend/requirements.txt

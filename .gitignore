@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+*.egg-info/
+dist/
+build/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+
+# Logs
+logs/
+*.log
+
+# Data (large files)
+data/raw/*.csv
+data/external/*.csv
+
+# Models (large files)
+models/trained/*.pkl
+models/experiments/
+
+# Node
+node_modules/
+build/
+.npm
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/

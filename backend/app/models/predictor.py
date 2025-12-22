@@ -1,7 +1,4 @@
-"""
-ML Model Predictor - RECONSTRUCTED WORKING VERSION
-Based on original implementation with regional intelligence
-"""
+
 
 import os
 import pickle

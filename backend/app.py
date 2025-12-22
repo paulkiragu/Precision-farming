@@ -5,7 +5,7 @@ Manages routes and connects frontend to AI model
 
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
-from backend.app.config.settings import Config
+from app.config.settings import Config
 import logging
 
 def create_app(config_class=Config):
@@ -19,9 +19,8 @@ def create_app(config_class=Config):
     logging.basicConfig(level=logging.INFO)
     
     # Register blueprints
-    from backend.app.routes import main_routes, api_routes
-    app.register_blueprint(main_routes.bp)
-    app.register_blueprint(api_routes.bp, url_prefix='/api')
+    from app.routes.api_routes import api
+    app.register_blueprint(api, url_prefix='/api')
     
     return app
 

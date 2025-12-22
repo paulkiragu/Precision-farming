@@ -45,6 +45,15 @@ node_modules/
 build/
 .npm
 
+# Backup files
+*_backup.*
+*_old.*
+*_new.*
+*.backup
+*.backup_*
+*_hierarchy_*
+*.backup
+
 # Testing
 .coverage
 htmlcov/

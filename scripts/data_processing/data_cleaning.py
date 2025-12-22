@@ -188,7 +188,7 @@ print(f"✓ Saved: smartgrow_cleaned.csv ({smartgrow_cleaned.shape[0]} rows)")
 crop_rec_cleaned.to_csv('crop_recommendation_cleaned.csv', index=False)
 print(f"✓ Saved: crop_recommendation_cleaned.csv ({crop_rec_cleaned.shape[0]} rows)")
 
-# Save merged dataset (as per project guidelines)
+# Save merged dataset 
 merged_df.to_csv('High_Accuracy_Crop_Data.csv', index=False)
 print(f"✓ Saved: High_Accuracy_Crop_Data.csv ({merged_df.shape[0]} rows)")
 

@@ -1,0 +1,21 @@
+[
+  "N",
+  "P",
+  "K",
+  "temperature",
+  "humidity",
+  "ph",
+  "rainfall",
+  "soil_Alluvial",
+  "soil_Black Cotton",
+  "soil_Clay",
+  "soil_Clay Loam",
+  "soil_Coastal Sandy",
+  "soil_Loam",
+  "soil_Red Volcanic",
+  "soil_Sand",
+  "soil_Sandy Loam",
+  "soil_Silty Clay",
+  "soil_Silty Loam",
+  "season_duration"
+]

@@ -1,0 +1,218 @@
+{
+  "Beans": {
+    "N_required": 55.726027397260275,
+    "P_required": 30.34246575342466,
+    "K_required": 37.54794520547945,
+    "optimal_ph": 6.1915068493150685
+  },
+  "Cassava": {
+    "N_required": 32.95867768595041,
+    "P_required": 21.52892561983471,
+    "K_required": 68.72727272727273,
+    "optimal_ph": 6.044380165289256
+  },
+  "Maize": {
+    "N_required": 80.41111111111111,
+    "P_required": 34.55555555555556,
+    "K_required": 49.56666666666667,
+    "optimal_ph": 6.5377777777777775
+  },
+  "Sorghum": {
+    "N_required": 35.659574468085104,
+    "P_required": 21.68794326241135,
+    "K_required": 31.95035460992908,
+    "optimal_ph": 6.749432624113475
+  },
+  "Tea": {
+    "N_required": 98.50746268656717,
+    "P_required": 49.47761194029851,
+    "K_required": 57.67164179104478,
+    "optimal_ph": 5.553582089552239
+  },
+  "Tomato": {
+    "N_required": 92.98305084745763,
+    "P_required": 48.78813559322034,
+    "K_required": 63.432203389830505,
+    "optimal_ph": 6.58
+  },
+  "Wheat": {
+    "N_required": 74.59911894273128,
+    "P_required": 34.585903083700444,
+    "K_required": 49.99559471365639,
+    "optimal_ph": 7.00057268722467
+  },
+  "apple": {
+    "N_required": 20.8,
+    "P_required": 134.22,
+    "K_required": 199.89,
+    "optimal_ph": 5.929662931809999
+  },
+  "banana": {
+    "N_required": 100.23,
+    "P_required": 82.01,
+    "K_required": 50.05,
+    "optimal_ph": 5.98389318024
+  },
+  "beans": {
+    "N_required": 28.033999999999995,
+    "P_required": 60.846000000000004,
+    "K_required": 61.16,
+    "optimal_ph": 6.632
+  },
+  "blackgram": {
+    "N_required": 40.02,
+    "P_required": 67.47,
+    "K_required": 19.24,
+    "optimal_ph": 7.133951629480002
+  },
+  "cabbage": {
+    "N_required": 121.75000000000001,
+    "P_required": 72.767,
+    "K_required": 122.06299999999999,
+    "optimal_ph": 6.630999999999999
+  },
+  "chickpea": {
+    "N_required": 40.09,
+    "P_required": 67.79,
+    "K_required": 79.92,
+    "optimal_ph": 7.33695662374
+  },
+  "coconut": {
+    "N_required": 21.98,
+    "P_required": 16.93,
+    "K_required": 30.59,
+    "optimal_ph": 5.97656212619
+  },
+  "coffee": {
+    "N_required": 101.2,
+    "P_required": 28.74,
+    "K_required": 29.94,
+    "optimal_ph": 6.790308274570001
+  },
+  "cotton": {
+    "N_required": 117.77,
+    "P_required": 46.24,
+    "K_required": 19.56,
+    "optimal_ph": 6.91267549578
+  },
+  "grapes": {
+    "N_required": 23.18,
+    "P_required": 132.53,
+    "K_required": 200.11,
+    "optimal_ph": 6.025936681099998
+  },
+  "jute": {
+    "N_required": 78.4,
+    "P_required": 46.86,
+    "K_required": 39.99,
+    "optimal_ph": 6.7327775681699995
+  },
+  "kidneybeans": {
+    "N_required": 20.75,
+    "P_required": 67.54,
+    "K_required": 20.05,
+    "optimal_ph": 5.749410585869999
+  },
+  "lentil": {
+    "N_required": 18.77,
+    "P_required": 68.36,
+    "K_required": 19.41,
+    "optimal_ph": 6.927931571609999
+  },
+  "maize": {
+    "N_required": 77.76,
+    "P_required": 48.44,
+    "K_required": 19.79,
+    "optimal_ph": 6.2451897224
+  },
+  "mango": {
+    "N_required": 20.07,
+    "P_required": 27.18,
+    "K_required": 29.92,
+    "optimal_ph": 5.766372799660001
+  },
+  "mothbeans": {
+    "N_required": 21.44,
+    "P_required": 48.01,
+    "K_required": 20.23,
+    "optimal_ph": 6.83117408269
+  },
+  "mungbean": {
+    "N_required": 20.99,
+    "P_required": 47.28,
+    "K_required": 19.87,
+    "optimal_ph": 6.72395694037
+  },
+  "muskmelon": {
+    "N_required": 100.32,
+    "P_required": 17.72,
+    "K_required": 50.08,
+    "optimal_ph": 6.358805451789998
+  },
+  "onions": {
+    "N_required": 97.80699999999999,
+    "P_required": 59.332,
+    "K_required": 82.94900000000001,
+    "optimal_ph": 6.523000000000001
+  },
+  "orange": {
+    "N_required": 19.58,
+    "P_required": 16.55,
+    "K_required": 10.01,
+    "optimal_ph": 7.01695745276
+  },
+  "papaya": {
+    "N_required": 49.88,
+    "P_required": 59.05,
+    "K_required": 50.04,
+    "optimal_ph": 6.74144237274
+  },
+  "passionfruit": {
+    "N_required": 96.512,
+    "P_required": 58.736999999999995,
+    "K_required": 80.335,
+    "optimal_ph": 6.2505
+  },
+  "pigeonpeas": {
+    "N_required": 20.73,
+    "P_required": 67.73,
+    "K_required": 20.29,
+    "optimal_ph": 5.794174879789999
+  },
+  "pineapple": {
+    "N_required": 275.573,
+    "P_required": 72.565,
+    "K_required": 312.473,
+    "optimal_ph": 5.41
+  },
+  "pomegranate": {
+    "N_required": 18.87,
+    "P_required": 18.75,
+    "K_required": 40.21,
+    "optimal_ph": 6.4291718411700005
+  },
+  "ribena": {
+    "N_required": 77.895,
+    "P_required": 43.16000000000001,
+    "K_required": 99.37200000000001,
+    "optimal_ph": 5.931
+  },
+  "rice": {
+    "N_required": 79.89,
+    "P_required": 47.58,
+    "K_required": 39.87,
+    "optimal_ph": 6.425470922139999
+  },
+  "tomato": {
+    "N_required": 134.96800000000002,
+    "P_required": 69.048,
+    "K_required": 192.67499999999995,
+    "optimal_ph": 6.5275
+  },
+  "watermelon": {
+    "N_required": 99.42,
+    "P_required": 17.0,
+    "K_required": 50.22,
+    "optimal_ph": 6.495778301569998
+  }
+}

@@ -1,15 +1,4 @@
-"""
-SmartGrow Crop Recommendation Model - Training Script
-------------------------------------------------------
-Production model with balanced class weights and enhanced dataset
-Predicts 43 Kenyan crops including fruits, vegetables, and staples
 
-Dataset: High_Accuracy_Crop_Data_Enhanced.csv (4820 samples, 43 crops)
-Includes: Avocado, Macadamia, Cashew, Sweet Potato, Kale, Irish Potato, Millet
-
-Author: SmartGrow Team
-Last Updated: December 22, 2025
-"""
 
 import pandas as pd
 import numpy as np

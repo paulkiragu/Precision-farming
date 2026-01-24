@@ -1,8 +1,3 @@
-"""
-API Integrator - Master Orchestrator
-Coordinates all external API calls and data enrichment
-Implements Option B: Parallel API calls with caching
-"""
 
 import asyncio
 import logging

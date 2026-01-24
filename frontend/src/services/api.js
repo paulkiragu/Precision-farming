@@ -1,18 +1,14 @@
-/**
- * API Service - Backend Integration
- * Handles all HTTP requests to the Flask backend
- */
 
 import axios from 'axios';
 
-// API Base URL - defaults to localhost:5000
+// API Base URL
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 /**
- * Get crop recommendation from backend
- * @param {string} location - Location name or coordinates
- * @param {string} soilType - Type of soil
- * @returns {Promise<Object>} Prediction result
+ *  crop recommendation from backend
+ * @param {string} location 
+ * @param {string} soilType 
+ * @returns {Promise<Object>} 
  */
 export const getCropRecommendation = async (location, soilType) => {
   try {
@@ -33,7 +29,6 @@ export const getCropRecommendation = async (location, soilType) => {
 };
 
 /**
- * Check backend health status
  * @returns {Promise<Object>} Health status
  */
 export const checkHealth = async () => {
@@ -47,7 +42,6 @@ export const checkHealth = async () => {
 };
 
 /**
- * Get list of supported soil types
  * @returns {Promise<Array>} Soil types
  */
 export const getSoilTypes = async () => {
@@ -61,8 +55,8 @@ export const getSoilTypes = async () => {
 };
 
 /**
- * Get list of predictable crops
- * @returns {Promise<Array>} Crops
+ * list of predictable crops
+ * @returns {Promise<Array>} 
  */
 export const getCrops = async () => {
   try {
@@ -74,9 +68,56 @@ export const getCrops = async () => {
   }
 };
 
+/**
+ * Reverse geocode coordinates using Mapbox API
+ * @param {number} latitude 
+ * @param {number} longitude 
+ * @returns {Promise<Object>} Location details
+ */
+export const reverseGeocode = async (latitude, longitude) => {
+  try {
+    const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN;
+    
+    if (!MAPBOX_TOKEN) {
+      throw new Error('Mapbox token not configured');
+    }
+
+    const response = await axios.get(
+      `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json`,
+      {
+        params: {
+          access_token: MAPBOX_TOKEN,
+          types: 'place,locality,district,region',
+          limit: 1
+        }
+      }
+    );
+
+    if (response.data.features && response.data.features.length > 0) {
+      const feature = response.data.features[0];
+      return {
+        placeName: feature.place_name,
+        text: feature.text,
+        context: feature.context || [],
+        coordinates: feature.center
+      };
+    }
+
+    throw new Error('No location found');
+  } catch (error) {
+    console.error('Reverse geocoding error:', error);
+    throw new Error(
+      error.response?.data?.message || 
+      error.message || 
+      'Failed to get location name'
+    );
+  }
+};
+
 export default {
   getCropRecommendation,
   checkHealth,
   getSoilTypes,
-  getCrops
+  getCrops,
+  reverseGeocode
 };

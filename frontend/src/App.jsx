@@ -4,7 +4,7 @@ import {
   Sprout, MapPin, Target, Edit3, CheckCircle2, Loader2, 
   AlertTriangle, Calendar, TrendingUp, Droplets, ThermometerSun
 } from 'lucide-react';
-import { getCropRecommendation } from './services/api';
+import { getCropRecommendation, reverseGeocode } from './services/api';
 
 // Visual soil types with agricultural colors
 const SOIL_TYPES = [
@@ -99,16 +99,16 @@ const LOADING_MESSAGES = [
 ];
 
 function App() {
-  const [step, setStep] = useState('soil'); // 'soil' or 'location'
+  const [step, setStep] = useState('soil'); 
   const [location, setLocation] = useState('');
   const [soilType, setSoilType] = useState('');
   const [loading, setLoading] = useState(false);
   const [loadingMessageIndex, setLoadingMessageIndex] = useState(0);
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
-  const [locationMethod, setLocationMethod] = useState(null); // 'gps' or 'manual'
+  const [locationMethod, setLocationMethod] = useState(null); 
   const [detectingLocation, setDetectingLocation] = useState(false);
-  const [gpsInfo, setGpsInfo] = useState(null); // Store GPS accuracy info
+  const [gpsInfo, setGpsInfo] = useState(null); 
 
   // Cycle through loading messages
   useState(() => {
@@ -121,75 +121,92 @@ function App() {
     return () => clearInterval(interval);
   }, [loading]);
 
-  // Auto-detect GPS location using device GPS (not IP/browser location)
+  // Auto-detect GPS location with device-aware accuracy checking
   const detectLocation = async () => {
     if (!navigator.geolocation) {
-      setError('❌ GPS is not supported on your device');
+      setError('GPS is not supported on your device');
       return;
-    }
-
-    // Check if we're on HTTP (not HTTPS) on mobile
-    const isHTTP = window.location.protocol === 'http:';
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    
-    if (isHTTP && isMobile) {
-      console.warn('⚠️ Running on HTTP. Some mobile browsers may block geolocation on HTTP connections.');
     }
 
     setDetectingLocation(true);
     setError(null);
     setGpsInfo(null);
 
-    console.log('Starting GPS detection...');
-    console.log(`Protocol: ${window.location.protocol}, User Agent: ${navigator.userAgent.substring(0, 50)}...`);
+    // Detect if this is a mobile device with real GPS
+    const isMobileUserAgent = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const hasTouchScreen = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    const isMobile = isMobileUserAgent && hasTouchScreen;
+    
+    console.log('🔍 Device detection:', {
+      userAgent: navigator.userAgent.substring(0, 80),
+      isMobileUserAgent,
+      hasTouchScreen,
+      isMobile: isMobile ? 'Mobile' : 'Desktop'
+    });
 
-    // Use device GPS with high accuracy settings
     navigator.geolocation.getCurrentPosition(
-      (position) => {
+      async (position) => {
         const { latitude, longitude, accuracy } = position.coords;
-        
-        console.log(`✅ GPS Success!`);
-        console.log(`GPS Coordinates: ${latitude}, ${longitude} (Accuracy: ${accuracy}m)`);
-        
-        // Warn if accuracy is poor (likely WiFi/IP location, not GPS)
-        if (accuracy > 100) {
-          console.warn(`⚠️ Low accuracy (${accuracy}m) - likely using WiFi/IP location, not device GPS. For best results, use a mobile device or enter location manually.`);
-        }
-        
-        // Send coordinates directly to backend - it will use Mapbox for geocoding
         const coordLocation = `${latitude.toFixed(6)}, ${longitude.toFixed(6)}`;
-        
-        console.log(`Sending coordinates to backend: ${coordLocation}`);
-        
-        setLocation(coordLocation);
-        setLocationMethod('gps');
-        setGpsInfo({ 
-          accuracy: Math.round(accuracy), 
-          type: accuracy > 100 ? 'wifi' : 'gps',
-          coords: coordLocation
+
+        console.log('📍 Location detected:', {
+          coords: coordLocation,
+          accuracy: accuracy ? `${Math.round(accuracy)}m` : 'unknown',
+          isMobile: isMobile,
+          timestamp: new Date().toISOString()
         });
-        setDetectingLocation(false);
+
+        try {
+          // convert coordinates to name using mapbox
+          const locationData = await reverseGeocode(latitude, longitude);
+          console.log('🗺️ Mapbox says:', locationData?.placeName || locationData?.text);
+
+          const hasAccuracy = typeof accuracy === 'number' && !isNaN(accuracy);
+
+          // Use place name for all devices
+          const place = (locationData && (locationData.placeName || locationData.text)) || coordLocation;
+          setLocation(place);
+          setLocationMethod('gps');
+          setGpsInfo({
+            accuracy: hasAccuracy ? Math.round(accuracy) : null,
+            type: isMobile ? 'gps' : 'wifi',
+            coords: coordLocation,
+            placeName: locationData?.placeName,
+            warning: !isMobile ? 'Desktop WiFi location may be inaccurate - please verify and correct if needed' : null
+          });
+          setError(null);
+
+          setDetectingLocation(false);
+        } catch (err) {
+          console.error('Reverse geocoding failed:', err);
+          // Fallback to coordinates when reverse geocoding fails
+          setLocation(coordLocation);
+          setLocationMethod('gps');
+          setGpsInfo({ accuracy: typeof accuracy === 'number' ? Math.round(accuracy) : null, type: 'unknown', coords: coordLocation });
+          setError('Could not resolve a place name. Using coordinates.');
+          setDetectingLocation(false);
+        }
       },
       (err) => {
         console.error('GPS Error:', err);
-        console.error('Error code:', err.code);
-        console.error('Error message:', err.message);
-        
-        let errorMsg = 'GPS permission denied. Please enter location manually.';
+        let errorMsg = 'Could not get your location.';
+
         if (err.code === 1) {
-          errorMsg = '❌ Location permission denied. Please allow location access in your browser settings and try again.';
+          errorMsg = 'Location permission denied. Please enable location access and try again.';
         } else if (err.code === 2) {
-          errorMsg = '❌ GPS position unavailable. Please check that location services are enabled on your device.';
+          errorMsg = 'Location unavailable. Please check your GPS/WiFi settings.';
         } else if (err.code === 3) {
-          errorMsg = '❌ GPS timeout. Please make sure you are outdoors or near a window and try again.';
+          errorMsg = 'Location request timed out. Please try again.';
         }
+
         setError(errorMsg);
+        setGpsInfo(null);
         setDetectingLocation(false);
       },
-      { 
-        enableHighAccuracy: true,  // Use GPS, not WiFi/IP location
-        timeout: 15000,            // Wait up to 15 seconds
-        maximumAge: 0              // Don't use cached location, get fresh GPS fix
+      {
+        enableHighAccuracy: true,
+        timeout: 15000,
+        maximumAge: 0
       }
     );
   };
@@ -233,9 +250,9 @@ function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50">
       
-      {/* LEVEL 1: HERO HEADER (Top 25% - Establishes Trust) */}
+      {/* header */}
       <div className="relative h-64 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 overflow-hidden">
-        {/* Animated background pattern */}
+        {/* background pattern */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0" style={{
             backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
@@ -251,7 +268,7 @@ function App() {
           </div>
         </div>
 
-        {/* Hero Content - Centered */}
+        {/* Hero Content */}
         <div className="relative h-full flex flex-col items-center justify-center text-center px-4">
           <motion.h1 
             initial={{ opacity: 0, y: -20 }}
@@ -271,7 +288,7 @@ function App() {
         </div>
       </div>
 
-      {/* LEVEL 2: ACTION CARD (Overlapping - The Workspace) */}
+      {/* ACTION CARD  */}
       <div className="relative -mt-20 px-4 pb-12">
         <main className="container mx-auto max-w-4xl">
         <AnimatePresence mode="wait">
@@ -295,7 +312,7 @@ function App() {
                       className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl flex items-start gap-3"
                     >
                       <AlertTriangle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
-                      <p className="text-red-800 text-sm">{error}</p>
+                      <p className="text-red-800 text-sm whitespace-pre-line">{error}</p>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -322,7 +339,7 @@ function App() {
                         }`}>
                           {gpsInfo.type === 'gps' 
                             ? `✅ GPS Location Detected (Accuracy: ${gpsInfo.accuracy}m)` 
-                            : `⚠️ WiFi Location Detected (Accuracy: ${gpsInfo.accuracy}m - May be inaccurate)`
+                            : `⚠️ WiFi/Network Location Detected (Accuracy: ${gpsInfo.accuracy}m)`
                           }
                         </p>
                         <p className={`text-xs mt-1 ${
@@ -330,30 +347,29 @@ function App() {
                         }`}>
                           Coordinates: {gpsInfo.coords}
                         </p>
+                        {gpsInfo.warning && (
+                          <p className="text-xs mt-2 font-semibold text-yellow-700">
+                            ⚠️ {gpsInfo.warning}
+                          </p>
+                        )}
+                        {gpsInfo.type === 'wifi' && (
+                          <p className="text-xs mt-2 font-semibold text-yellow-700">
+                            💡 Tip: If the location is wrong, please manually type your town/village name above for accurate results.
+                          </p>
+                        )}
                       </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
 
-                {/* SECTION A: LOCATION (Pill Layout) */}
+                {/* LOCATION  */}
                 <div className="mb-8">
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     📍 Where is your farm?
                   </label>
                   
-                  {/* Warning about GPS accuracy */}
-                  <div className="mb-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                    <p className="text-xs text-blue-800 flex items-start gap-2">
-                      <AlertTriangle className="w-4 h-4 flex-shrink-0 mt-0.5" />
-                      <span>
-                        <strong>Note:</strong> Auto-detect may use WiFi or network location (not always accurate). 
-                        For best results, <strong>manually enter your village, town, or county name</strong>.
-                      </span>
-                    </p>
-                  </div>
-                  
                   <div className="flex flex-col md:flex-row gap-3">
-                    {/* Manual Input FIRST (Primary) */}
+                    {/* Manual Input  (Primary) */}
                     <div className="flex-1">
                       <input
                         type="text"
@@ -361,14 +377,14 @@ function App() {
                         onChange={(e) => {
                           setLocation(e.target.value);
                           setLocationMethod('manual');
-                          setGpsInfo(null); // Clear GPS info when typing manually
+                          setGpsInfo(null); 
                         }}
                         placeholder="Enter your village, town, or county..."
                         className="w-full px-4 py-4 border-2 border-gray-300 rounded-xl focus:border-emerald-500 focus:outline-none transition-colors text-gray-700 font-medium"
                       />
                     </div>
 
-                    {/* GPS Button SECOND (Alternative - Gray) */}
+                    {/* GPS Button */}
                     <div className="flex items-center gap-2">
                       <span className="text-gray-400 text-sm font-light">or</span>
                       <motion.button
@@ -394,7 +410,7 @@ function App() {
                   </div>
                 </div>
 
-                {/* SECTION B: SOIL (Selectable Cards - All 10 Types) */}
+                {/*  soil selection */}
                 <div className="mb-8">
                   <label className="block text-sm font-medium text-gray-700 mb-3">
                     🌱 What type of soil do you have?
@@ -585,10 +601,10 @@ function App() {
       {/* Footer */}
       <footer className="bg-gradient-to-r from-amber-800 to-amber-900 text-white py-6 mt-20">
         <div className="container mx-auto px-4 text-center">
-          <div className="text-lg font-medium">University of Embu</div>
-          <div className="text-amber-200 text-sm">Final Year Project 2025</div>
+          <div className="text-lg font-medium">Precision Farming</div>
+          <div className="text-amber-200 text-sm"><span>&#xA9;</span> 2025</div>
           <div className="text-xs text-amber-300 mt-2">
-            Climate-Smart Agriculture • Precision Farming • AI-Powered Recommendations
+            Precision Farming • AI-Powered Recommendations
           </div>
         </div>
       </footer>

@@ -163,11 +163,10 @@ class CropPredictor:
         
         logger.info(f"Regional boost - Zone: '{zone}', Location: '{location}'")
         
-        # ==================== RICE IRRIGATION SCHEMES (HIGHEST PRIORITY) ====================
-        # Only actual rice irrigation schemes - Mwea (Kirinyaga), Ahero/Bunyala (Kisumu)
+        #  RICE IRRIGATION
         rice_locations = ['mwea', 'tebere', 'thiba', 'wang\'uru', 'ahero', 'bunyala', 
                          'west kano', 'kano plains', 'mauche']
-        # EXACT match for rice scheme zone - must contain "rice scheme" not just "rice"
+        # EXACT match for rice scheme zone 
         if 'rice scheme' in zone_lower or any(loc in location_lower for loc in rice_locations):
             boosts = {
                 'rice': 100.0, 'maize': 5.0, 'beans': 4.0, 'tomato': 3.0,
@@ -175,7 +174,7 @@ class CropPredictor:
             }
             logger.info("Applied RICE IRRIGATION SCHEME boost")
         
-        # ==================== COASTAL REGIONS ====================
+        #  COASTAL REGIONS 
         elif 'coastal' in zone_lower or any(loc in location_lower for loc in [
             'mombasa', 'malindi', 'lamu', 'kilifi', 'watamu', 'diani', 'kwale', 
             'voi', 'taveta', 'msambweni', 'ukunda', 'gede', 'mambrui'
@@ -187,7 +186,7 @@ class CropPredictor:
             }
             logger.info("Applied COASTAL boost")
         
-        # ==================== PINEAPPLE ZONES (Thika, Murang'a) ====================
+        #  PINEAPPLE ZONES (Thika, Murang'a) 
         elif any(loc in location_lower for loc in [
             'thika', 'juja', 'ruiru', 'gatundu', 'githunguri', 'kandara'
         ]):
@@ -198,7 +197,7 @@ class CropPredictor:
             }
             logger.info("Applied PINEAPPLE ZONE boost")
         
-        # ==================== MT. KENYA FRUIT ZONE (Embu, Meru lower) ====================
+        #MT. KENYA FRUIT ZONE (Embu, Meru lower) 
         elif 'mt. kenya fruit' in zone_lower or 'kenya fruit' in zone_lower or any(loc in location_lower for loc in [
             'kangaru', 'embu', 'siakago', 'runyenjes', 'meru south', 'chuka lower'
         ]):
@@ -209,7 +208,7 @@ class CropPredictor:
             }
             logger.info("Applied MT. KENYA FRUIT ZONE boost")
         
-        # ==================== HIGHLAND TEA/COFFEE ZONES (Kericho, Nyeri upper) ====================
+        #  HIGHLAND TEA/COFFEE ZONES (Kericho, Nyeri upper)
         elif any(loc in location_lower for loc in [
             'kericho', 'nandi', 'bomet', 'kapsabet', 'kapsowar', 'sotik', 'nyamira', 
             'keroka', 'kiambu', 'limuru', 'tigoni', 'muranga', 'murang\'a',
@@ -222,7 +221,7 @@ class CropPredictor:
             }
             logger.info("Applied HIGHLAND TEA/COFFEE boost")
         
-        # ==================== RIFT VALLEY MAIZE/WHEAT BELT ====================
+        # RIFT VALLEY 
         elif any(loc in location_lower for loc in [
             'eldoret', 'kitale', 'molo', 'njoro', 'elburgon', 'mau narok', 'burnt forest',
             'lessos', 'turbo', 'soy', 'ziwa', 'timboroa', 'kipkaren'
@@ -234,7 +233,7 @@ class CropPredictor:
             }
             logger.info("Applied RIFT VALLEY MAIZE/WHEAT boost")
         
-        # ==================== WESTERN HIGH RAINFALL ====================
+        #  WESTERN HIGH RAINFAll
         elif any(loc in location_lower for loc in [
             'kisumu', 'kakamega', 'bungoma', 'busia', 'mumias', 'webuye', 'malava',
             'butere', 'khwisero', 'siaya', 'yala', 'ugunja', 'vihiga', 'mbale'
@@ -246,7 +245,7 @@ class CropPredictor:
             }
             logger.info("Applied WESTERN HIGH RAINFALL boost")
         
-        # ==================== CENTRAL KENYA MIXED FARMING ====================
+        #  CENTRAL KENYA MIXED FARMING
         elif any(loc in location_lower for loc in [
             'nairobi', 'machakos', 'makueni', 'kitui', 'kangundo', 'wamunyu', 'tala',
             'kathiani', 'mwala', 'matungulu'
@@ -258,7 +257,7 @@ class CropPredictor:
             }
             logger.info("Applied CENTRAL MIXED FARMING boost")
         
-        # ==================== NYANZA REGION ====================
+        #  NYANZA REGION
         elif any(loc in location_lower for loc in [
             'kisii', 'nyamira', 'migori', 'homa bay', 'homabay', 'rongo', 'kehancha',
             'oyugis', 'kendu bay', 'mbita', 'suba'
@@ -270,7 +269,7 @@ class CropPredictor:
             }
             logger.info("Applied NYANZA boost")
         
-        # ==================== ARID/SEMI-ARID (Eastern & Northern) ====================
+        # ARID/SEMI-ARID (Eastern & Northern)
         elif 'arid' in zone_lower or 'dry' in zone_lower or any(loc in location_lower for loc in [
             'garissa', 'wajir', 'mandera', 'marsabit', 'moyale', 'isiolo', 'meru north',
             'tharaka', 'mwingi', 'kibwezi', 'mtito andei', 'makindu'
@@ -282,7 +281,7 @@ class CropPredictor:
             }
             logger.info("Applied ARID/SEMI-ARID boost")
         
-        # ==================== MOUNT KENYA REGION (Fruit Basket) ====================
+        # MOUNT KENYA REGION (Fruit Basket)
         elif any(loc in location_lower for loc in [
             'nanyuki', 'laikipia', 'naro moru', 'timau', 'isiolo'
         ]):
@@ -293,10 +292,8 @@ class CropPredictor:
             }
             logger.info("Applied MOUNT KENYA boost")
         
-        # ==================== FALLBACK TO ZONE-BASED ====================
+        #  FALLBACK TO ZONE-BASED 
         elif 'highland mixed' in zone_lower:
-            # Highland Mixed (Kiambu, parts of Murang'a) - NOT tea zones
-            # Check BEFORE general 'highland' to avoid misrouting
             boosts = {
                 'maize': 500.0, 'beans': 500.0, 'coffee': 150.0, 'kale': 120.0,
                 'cabbage': 80.0, 'irish potato': 80.0, 'avocado': 5.0,
@@ -327,7 +324,6 @@ class CropPredictor:
             logger.info("Applied CENTRAL (zone fallback) boost")
         
         else:
-            # Even with no match, apply gentle defaults based on keywords
             if any(word in location_lower for word in ['town', 'city', 'urban']):
                 boosts = {'kale': 15.0, 'tomato': 15.0, 'cabbage': 13.0, 'onion': 12.0}
                 logger.info("Applied URBAN/PERI-URBAN boost")

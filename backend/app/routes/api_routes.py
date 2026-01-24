@@ -1,7 +1,3 @@
-"""
-API Routes
-Flask Blueprint for crop recommendation endpoints
-"""
 
 import logging
 import asyncio

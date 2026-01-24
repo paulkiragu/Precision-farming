@@ -1,8 +1,3 @@
-"""
-Weather Service - Enhanced Multi-Source Weather Integration
-Fetches real-time weather data from multiple sources with intelligent fallback
-Includes historical patterns, micro-climate detection, and soil moisture calculation
-"""
 
 import aiohttp
 import logging
@@ -28,7 +23,6 @@ class WeatherService:
     ELEVATION_URL = "https://api.open-meteo.com/v1/elevation"
     
     # Enhanced Monthly Historical Averages for Kenya (based on climate data)
-    # Format: {month: {region: {temp, humidity, rainfall}}}
     MONTHLY_PATTERNS = {
         # Jan-Feb: Hot & Dry
         1: {
@@ -111,16 +105,16 @@ class WeatherService:
     
     # Soil water retention rates (field capacity %)
     SOIL_RETENTION = {
-        'Clay': 0.45,           # Holds 45% water
+        'Clay': 0.45,           
         'Clay Loam': 0.38,
         'Loam': 0.32,
         'Sandy Loam': 0.22,
-        'Sandy': 0.12,          # Holds 12% water
-        'Red Volcanic': 0.35,   # Good retention
-        'Black Cotton': 0.42,   # High retention
+        'Sandy': 0.12,         
+        'Red Volcanic': 0.35,   
+        'Black Cotton': 0.42,  
         'Alluvial': 0.30,
         'Laterite': 0.25,
-        'Peat': 0.50           # Excellent retention
+        'Peat': 0.50           
     }
     
     def __init__(self):
@@ -163,14 +157,14 @@ class WeatherService:
                     'reliability': 0.85  # High reliability
                 })
             
-            # Try OpenWeatherMap (secondary) if configured
+            #  OpenWeatherMap (secondary) 
             if self.openweather_api_key:
                 openweather_data = await self._fetch_openweathermap(lat, lon)
                 if openweather_data:
                     weather_sources.append({
                         'source': 'OpenWeatherMap',
                         'data': openweather_data,
-                        'reliability': 0.80  # Good reliability
+                        'reliability': 0.80 
                     })
             
             # Add historical patterns as baseline
@@ -626,10 +620,6 @@ class WeatherService:
         humidity = weather_data['humidity']
         rainfall = weather_data['rainfall']
         
-        # Calculate potential evapotranspiration (PET) using simplified Thornthwaite method
-        # PET ≈ 16 * (10*T/I)^a, where I is heat index
-        # Simplified: PET (mm/year) ≈ 1.6 * (10 * T / heat_index)
-        # For Kenya, rough approximation: PET = 15 * T - 200 (adjusted for tropical climate)
         evapotranspiration = max(0, 15 * temperature - 200)
         
         # Adjust for humidity (higher humidity = lower evaporation)

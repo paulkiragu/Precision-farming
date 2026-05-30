@@ -11,7 +11,7 @@ const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
  * @returns {Promise<Object>} 
  */
 export const getCropRecommendation = async (location, soilType) => {
-  console.log('Calling URL:', url);
+  console.log('Calling URL:', API_URL);
   try {
     const response = await axios.post(`${API_URL}/api/predict`, {
       location,

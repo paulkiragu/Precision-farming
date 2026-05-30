@@ -70,7 +70,7 @@ def create_app():
     
     # Register blueprints
     from .routes.api_routes import api
-    app.register_blueprint(api)
+    app.register_blueprint(api, url_prefix='/api')
     
     # Root endpoint
     @app.route('/')

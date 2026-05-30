@@ -1,0 +1,1314 @@
+{
+  "maize": {
+    "name": "Maize",
+    "planting": {
+      "default": {
+        "hole_width_cm": 23,
+        "hole_depth_cm": 30,
+        "spacing_row_cm": 75,
+        "spacing_plant_cm": 25,
+        "seeds_per_hole": 2
+      },
+      "adjustments": {
+        "low_rainfall": {
+          "hole_depth_cm": 35,
+          "spacing_plant_cm": 30,
+          "note": "Deeper holes retain moisture; wider spacing reduces water competition"
+        },
+        "high_rainfall": {
+          "hole_depth_cm": 25,
+          "spacing_row_cm": 90,
+          "note": "Shallower holes prevent waterlogging; wider rows improve drainage"
+        },
+        "sandy_soil": {
+          "hole_depth_cm": 35,
+          "hole_width_cm": 25,
+          "note": "Deeper planting in sandy soil helps retain moisture around roots"
+        },
+        "clay_soil": {
+          "hole_depth_cm": 20,
+          "hole_width_cm": 30,
+          "note": "Shallower planting in clay prevents waterlogging; wider holes improve drainage"
+        },
+        "high_temperature": {
+          "spacing_plant_cm": 30,
+          "note": "Wider spacing reduces stress from heat competition"
+        }
+      }
+    },
+    "fertilizers": {
+      "basal": {
+        "type": "DAP (Di-Ammonium Phosphate)",
+        "rate_kg_per_acre": 50,
+        "timing": "At planting",
+        "application": "Place 5cm below and beside the seed"
+      },
+      "top_dress": {
+        "type": "CAN (Calcium Ammonium Nitrate)",
+        "rate_kg_per_acre": 50,
+        "timing": "4-6 weeks after emergence",
+        "application": "Apply in a ring 10cm from the stem"
+      },
+      "organic": {
+        "type": "Well-decomposed manure",
+        "rate_kg_per_acre": 2000,
+        "timing": "2 weeks before planting",
+        "application": "Mix thoroughly with topsoil"
+      }
+    },
+    "avoid": [
+      "Planting during waterlogged conditions",
+      "Using fresh manure (burns roots)",
+      "Overcrowding plants (reduces yield by 40%)",
+      "Planting same field continuously (depletes nitrogen)",
+      "Ignoring soil pH below 5.5 (causes nutrient lockout)",
+      "Late top-dressing after tasseling stage"
+    ],
+    "best_practices": [
+      "Test soil before planting",
+      "Rotate with legumes like beans",
+      "Mulch to conserve moisture",
+      "Control weeds early (first 6 weeks critical)"
+    ]
+  },
+  "beans": {
+    "name": "Beans",
+    "planting": {
+      "default": {
+        "hole_width_cm": 10,
+        "hole_depth_cm": 5,
+        "spacing_row_cm": 50,
+        "spacing_plant_cm": 15,
+        "seeds_per_hole": 2
+      },
+      "adjustments": {
+        "low_rainfall": {
+          "hole_depth_cm": 8,
+          "spacing_plant_cm": 20,
+          "note": "Deeper planting accesses soil moisture; wider spacing reduces competition"
+        },
+        "high_rainfall": {
+          "hole_depth_cm": 3,
+          "spacing_row_cm": 60,
+          "note": "Shallow planting prevents rot; wider rows improve air circulation"
+        },
+        "sandy_soil": {
+          "hole_depth_cm": 7,
+          "note": "Slightly deeper to access moisture in sandy soil"
+        },
+        "clay_soil": {
+          "hole_depth_cm": 3,
+          "note": "Shallow planting in clay to prevent waterlogging"
+        }
+      }
+    },
+    "fertilizers": {
+      "basal": {
+        "type": "TSP (Triple Super Phosphate)",
+        "rate_kg_per_acre": 40,
+        "timing": "At planting",
+        "application": "Band 5cm below and beside seed"
+      },
+      "inoculant": {
+        "type": "Rhizobium inoculant",
+        "rate_kg_per_acre": 0.1,
+        "timing": "Coat seeds before planting",
+        "application": "Mix with seeds in shade, plant immediately"
+      },
+      "organic": {
+        "type": "Compost",
+        "rate_kg_per_acre": 1500,
+        "timing": "Before planting",
+        "application": "Incorporate into soil"
+      }
+    },
+    "avoid": [
+      "Excessive nitrogen fertilizer (promotes leaves, not pods)",
+      "Planting in waterlogged soil",
+      "Touching wet plants (spreads disease)",
+      "Planting after beans in same spot (disease buildup)",
+      "Deep planting in heavy soils",
+      "Harvesting when plants are wet"
+    ],
+    "best_practices": [
+      "Use certified disease-free seed",
+      "Practice 2-year rotation",
+      "Harvest at physiological maturity",
+      "Dry thoroughly before storage"
+    ]
+  },
+  "wheat": {
+    "name": "Wheat",
+    "planting": {
+      "default": {
+        "seed_rate_kg_per_acre": 40,
+        "row_spacing_cm": 20,
+        "planting_depth_cm": 5,
+        "seeds_per_hole": null
+      },
+      "adjustments": {
+        "low_rainfall": {
+          "seed_rate_kg_per_acre": 35,
+          "planting_depth_cm": 7,
+          "note": "Lower seed rate and deeper planting for moisture access"
+        },
+        "high_rainfall": {
+          "seed_rate_kg_per_acre": 45,
+          "row_spacing_cm": 25,
+          "note": "Slightly higher rate; wider rows for air circulation"
+        },
+        "clay_soil": {
+          "planting_depth_cm": 4,
+          "note": "Shallower depth in heavy clay soils"
+        }
+      }
+    },
+    "fertilizers": {
+      "basal": {
+        "type": "DAP",
+        "rate_kg_per_acre": 50,
+        "timing": "At planting",
+        "application": "Drill with seed or band below"
+      },
+      "top_dress": {
+        "type": "CAN or Urea",
+        "rate_kg_per_acre": 50,
+        "timing": "At tillering (3-4 weeks)",
+        "application": "Broadcast evenly"
+      }
+    },
+    "avoid": [
+      "Planting too deep in wet conditions",
+      "Late top-dressing after heading",
+      "Water stress during flowering",
+      "Continuous wheat cropping",
+      "Ignoring rust disease early signs"
+    ],
+    "best_practices": [
+      "Plant at start of rains for rainfed",
+      "Scout regularly for rust",
+      "Rotate with legumes or fallow"
+    ]
+  },
+  "rice": {
+    "name": "Rice",
+    "planting": {
+      "default": {
+        "seedling_age_days": 21,
+        "spacing_row_cm": 20,
+        "spacing_plant_cm": 15,
+        "seedlings_per_hill": 2,
+        "transplant_depth_cm": 3
+      },
+      "adjustments": {
+        "low_water": {
+          "spacing_row_cm": 25,
+          "spacing_plant_cm": 20,
+          "note": "Wider spacing reduces water requirement per plant"
+        },
+        "high_temperature": {
+          "seedling_age_days": 18,
+          "note": "Transplant younger seedlings in hot conditions"
+        }
+      }
+    },
+    "fertilizers": {
+      "basal": {
+        "type": "DAP",
+        "rate_kg_per_acre": 50,
+        "timing": "Before transplanting",
+        "application": "Incorporate into puddled soil"
+      },
+      "first_top_dress": {
+        "type": "Urea",
+        "rate_kg_per_acre": 30,
+        "timing": "2-3 weeks after transplanting",
+        "application": "Broadcast on drained field"
+      },
+      "second_top_dress": {
+        "type": "Urea",
+        "rate_kg_per_acre": 20,
+        "timing": "At panicle initiation",
+        "application": "Broadcast and flood"
+      }
+    },
+    "avoid": [
+      "Transplanting overgrown seedlings (>25 days)",
+      "Deep transplanting (reduces tillering)",
+      "Nitrogen application during flooding",
+      "Draining during flowering",
+      "Excessive nitrogen (causes lodging)"
+    ],
+    "best_practices": [
+      "Maintain 5cm water depth first 2 weeks",
+      "Alternate wetting and drying after tillering",
+      "Control weeds within first 3 weeks"
+    ]
+  },
+  "coffee": {
+    "name": "Coffee",
+    "planting": {
+      "default": {
+        "hole_width_cm": 60,
+        "hole_depth_cm": 60,
+        "spacing_row_m": 2.7,
+        "spacing_plant_m": 2.7,
+        "seedlings_per_hole": 1
+      },
+      "adjustments": {
+        "steep_slope": {
+          "spacing_row_m": 2.5,
+          "note": "Closer spacing on slopes for erosion control"
+        },
+        "high_rainfall": {
+          "hole_depth_cm": 50,
+          "note": "Shallower holes in high rainfall areas prevent waterlogging"
+        },
+        "low_rainfall": {
+          "hole_depth_cm": 75,
+          "hole_width_cm": 75,
+          "note": "Larger holes for more organic matter and water retention"
+        }
+      }
+    },
+    "fertilizers": {
+      "planting": {
+        "type": "Manure + Rock Phosphate",
+        "rate_kg_per_hole": 20,
+        "timing": "Fill hole 2 months before planting",
+        "application": "Mix manure with topsoil in hole"
+      },
+      "year_1": {
+        "type": "NPK 17:17:17",
+        "rate_g_per_tree": 60,
+        "timing": "Split: March, June, October",
+        "application": "Ring around drip line"
+      },
+      "bearing_trees": {
+        "type": "NPK 20:10:10 or specialized coffee fertilizer",
+        "rate_g_per_tree": 250,
+        "timing": "Split application with rains",
+        "application": "Band under canopy, 30cm from stem"
+      }
+    },
+    "avoid": [
+      "Planting in waterlogged areas",
+      "Exposing young plants to direct sun",
+      "Fertilizing dry soil (burns roots)",
+      "Pruning in wet weather (disease entry)",
+      "Ignoring CBD (Coffee Berry Disease)",
+      "Harvesting unripe cherries"
+    ],
+    "best_practices": [
+      "Provide shade for young plants",
+      "Mulch heavily",
+      "Prune after harvest",
+      "Scout weekly for pests and diseases"
+    ]
+  },
+  "tea": {
+    "name": "Tea",
+    "planting": {
+      "default": {
+        "hole_width_cm": 45,
+        "hole_depth_cm": 45,
+        "spacing_row_m": 1.2,
+        "spacing_plant_cm": 75,
+        "plants_per_hole": 1
+      },
+      "adjustments": {
+        "steep_slope": {
+          "spacing_row_m": 1.0,
+          "note": "Closer rows on slopes for ground cover and erosion control"
+        },
+        "high_rainfall": {
+          "hole_depth_cm": 40,
+          "note": "Shallower holes prevent waterlogging around roots"
+        }
+      }
+    },
+    "fertilizers": {
+      "young_tea": {
+        "type": "NPK 25:5:5",
+        "rate_kg_per_acre": 100,
+        "timing": "Split into 4 applications per year",
+        "application": "Band between rows"
+      },
+      "mature_tea": {
+        "type": "NPKS 25:5:5:5",
+        "rate_kg_per_acre": 200,
+        "timing": "Monthly during plucking season",
+        "application": "Broadcast between rows"
+      }
+    },
+    "avoid": [
+      "Planting in areas with <1200mm rainfall",
+      "Waterlogged sites",
+      "Hard plucking of young bushes",
+      "Fertilizing without soil testing",
+      "Neglecting drainage channels"
+    ],
+    "best_practices": [
+      "Maintain plucking table at 60-75cm",
+      "Install proper drainage",
+      "Apply mulch for moisture retention"
+    ]
+  },
+  "irish potato": {
+    "name": "Irish Potato",
+    "planting": {
+      "default": {
+        "furrow_depth_cm": 15,
+        "spacing_row_cm": 75,
+        "spacing_plant_cm": 30,
+        "tuber_depth_cm": 10
+      },
+      "adjustments": {
+        "low_rainfall": {
+          "furrow_depth_cm": 20,
+          "tuber_depth_cm": 15,
+          "note": "Deeper planting retains soil moisture around tubers"
+        },
+        "high_rainfall": {
+          "furrow_depth_cm": 10,
+          "spacing_row_cm": 90,
+          "note": "Shallower depth and wider rows improve drainage"
+        },
+        "sandy_soil": {
+          "tuber_depth_cm": 15,
+          "note": "Deeper planting in sandy soil for cooler temperatures"
+        },
+        "clay_soil": {
+          "tuber_depth_cm": 8,
+          "note": "Shallower in heavy soil to prevent rot"
+        }
+      }
+    },
+    "fertilizers": {
+      "basal": {
+        "type": "DAP",
+        "rate_kg_per_acre": 100,
+        "timing": "At planting",
+        "application": "Band in furrow, cover before placing tubers"
+      },
+      "top_dress": {
+        "type": "CAN",
+        "rate_kg_per_acre": 100,
+        "timing": "During first hilling (3-4 weeks)",
+        "application": "Apply beside plants before hilling"
+      }
+    },
+    "avoid": [
+      "Using diseased seed tubers",
+      "Planting in same field more than 2 seasons",
+      "Overwatering (causes tuber rot)",
+      "Leaving tubers exposed to sun (greening)",
+      "Late blight ignored (spray preventively)",
+      "Harvesting wet tubers"
+    ],
+    "best_practices": [
+      "Use certified seed",
+      "Hill up twice during growth",
+      "Desiccate foliage 2 weeks before harvest",
+      "Cure tubers in shade before storage"
+    ]
+  },
+  "tomato": {
+    "name": "Tomato",
+    "planting": {
+      "default": {
+        "hole_width_cm": 30,
+        "hole_depth_cm": 30,
+        "spacing_row_cm": 100,
+        "spacing_plant_cm": 60,
+        "seedlings_per_hole": 1
+      },
+      "adjustments": {
+        "low_rainfall": {
+          "hole_depth_cm": 35,
+          "hole_width_cm": 35,
+          "note": "Larger holes hold more moisture and organic matter"
+        },
+        "high_rainfall": {
+          "spacing_row_cm": 120,
+          "spacing_plant_cm": 75,
+          "note": "Wider spacing improves air circulation, reduces disease"
+        },
+        "high_temperature": {
+          "spacing_plant_cm": 75,
+          "note": "More space reduces heat stress"
+        }
+      }
+    },
+    "fertilizers": {
+      "planting": {
+        "type": "Manure + TSP",
+        "rate_kg_per_hole": 2,
+        "timing": "Mix in hole 1 week before transplanting",
+        "application": "Fill hole with mixture"
+      },
+      "top_dress_1": {
+        "type": "CAN",
+        "rate_g_per_plant": 10,
+        "timing": "2 weeks after transplanting",
+        "application": "Ring around plant"
+      },
+      "fruiting": {
+        "type": "NPK 10:20:20",
+        "rate_g_per_plant": 15,
+        "timing": "At first flowering",
+        "application": "Apply and water immediately"
+      }
+    },
+    "avoid": [
+      "Overhead irrigation (spreads disease)",
+      "Planting after solanaceae (tomato, potato, pepper)",
+      "High nitrogen during fruiting (all leaves, no fruit)",
+      "Touching wet plants",
+      "Ignoring early blight symptoms",
+      "Irregular watering (causes blossom end rot)"
+    ],
+    "best_practices": [
+      "Stake or cage indeterminate varieties",
+      "Drip irrigate for best results",
+      "Remove suckers up to first flower cluster",
+      "Spray preventively for late blight"
+    ]
+  },
+  "cabbage": {
+    "name": "Cabbage",
+    "planting": {
+      "default": {
+        "hole_width_cm": 20,
+        "hole_depth_cm": 20,
+        "spacing_row_cm": 60,
+        "spacing_plant_cm": 45,
+        "seedlings_per_hole": 1
+      },
+      "adjustments": {
+        "high_temperature": {
+          "spacing_row_cm": 75,
+          "spacing_plant_cm": 60,
+          "note": "Wider spacing in heat allows better head formation"
+        },
+        "high_rainfall": {
+          "spacing_row_cm": 75,
+          "note": "More space for air circulation reduces disease pressure"
+        }
+      }
+    },
+    "fertilizers": {
+      "basal": {
+        "type": "DAP",
+        "rate_kg_per_acre": 100,
+        "timing": "At transplanting",
+        "application": "Mix into planting hole"
+      },
+      "top_dress": {
+        "type": "CAN",
+        "rate_kg_per_acre": 100,
+        "timing": "3 weeks after transplanting",
+        "application": "Ring around plants"
+      }
+    },
+    "avoid": [
+      "Planting in same field repeatedly (club root buildup)",
+      "Water stress during head formation",
+      "Ignoring caterpillars (spray or hand-pick)",
+      "Harvesting during hot afternoons",
+      "Excessive nitrogen late in season (loose heads)"
+    ],
+    "best_practices": [
+      "Rotate with non-brassica crops",
+      "Control aphids early",
+      "Harvest in morning for crispness"
+    ]
+  },
+  "kale": {
+    "name": "Kale (Sukuma Wiki)",
+    "planting": {
+      "default": {
+        "hole_width_cm": 15,
+        "hole_depth_cm": 15,
+        "spacing_row_cm": 60,
+        "spacing_plant_cm": 45,
+        "seedlings_per_hole": 1
+      },
+      "adjustments": {
+        "high_rainfall": {
+          "spacing_row_cm": 75,
+          "note": "Wider rows reduce fungal disease pressure"
+        }
+      }
+    },
+    "fertilizers": {
+      "basal": {
+        "type": "DAP or TSP",
+        "rate_kg_per_acre": 80,
+        "timing": "At transplanting",
+        "application": "In planting hole"
+      },
+      "top_dress": {
+        "type": "CAN",
+        "rate_kg_per_acre": 50,
+        "timing": "Every 3 weeks after first harvest",
+        "application": "Side dress along rows"
+      }
+    },
+    "avoid": [
+      "Over-harvesting young plants",
+      "Continuous cropping (club root, black rot)",
+      "Overhead irrigation in afternoons"
+    ],
+    "best_practices": [
+      "Start harvesting lower leaves first",
+      "Leave 4-5 leaves on plant always",
+      "Rotate annually"
+    ]
+  },
+  "banana": {
+    "name": "Banana",
+    "planting": {
+      "default": {
+        "hole_width_cm": 60,
+        "hole_depth_cm": 60,
+        "spacing_row_m": 3,
+        "spacing_plant_m": 3,
+        "suckers_per_hole": 1
+      },
+      "adjustments": {
+        "low_rainfall": {
+          "hole_width_cm": 90,
+          "hole_depth_cm": 90,
+          "note": "Larger holes hold more organic matter and moisture"
+        },
+        "high_rainfall": {
+          "hole_depth_cm": 45,
+          "note": "Shallower holes prevent waterlogging"
+        },
+        "steep_slope": {
+          "spacing_row_m": 2.5,
+          "note": "Closer spacing for erosion control"
+        }
+      }
+    },
+    "fertilizers": {
+      "planting": {
+        "type": "Manure",
+        "rate_kg_per_hole": 20,
+        "timing": "Mix into hole 2 weeks before planting",
+        "application": "Blend with topsoil"
+      },
+      "established": {
+        "type": "NPK 17:17:17",
+        "rate_kg_per_mat": 0.5,
+        "timing": "Every 3 months",
+        "application": "Ring around mat, 30cm from pseudostem"
+      }
+    },
+    "avoid": [
+      "Planting diseased or weevil-infested suckers",
+      "Waterlogged sites",
+      "Allowing more than 3 plants per mat",
+      "Harvesting immature bunches",
+      "Leaving cut pseudostems standing (weevil breeding)"
+    ],
+    "best_practices": [
+      "De-sucker regularly (keep mother + daughter + granddaughter)",
+      "Remove dry leaves and male bud",
+      "Mulch heavily around mats"
+    ]
+  },
+  "sugarcane": {
+    "name": "Sugarcane",
+    "planting": {
+      "default": {
+        "furrow_depth_cm": 30,
+        "furrow_width_cm": 30,
+        "spacing_row_m": 1.2,
+        "setts_per_meter": 3,
+        "sett_depth_cm": 10
+      },
+      "adjustments": {
+        "low_rainfall": {
+          "furrow_depth_cm": 35,
+          "sett_depth_cm": 15,
+          "note": "Deeper planting retains moisture"
+        },
+        "clay_soil": {
+          "furrow_depth_cm": 25,
+          "note": "Shallower in heavy soils to prevent waterlogging"
+        }
+      }
+    },
+    "fertilizers": {
+      "basal": {
+        "type": "DAP",
+        "rate_kg_per_acre": 100,
+        "timing": "At planting",
+        "application": "Apply in furrow before placing setts"
+      },
+      "top_dress": {
+        "type": "Urea or CAN",
+        "rate_kg_per_acre": 100,
+        "timing": "At 6 weeks and 12 weeks",
+        "application": "Side dress and earth up"
+      }
+    },
+    "avoid": [
+      "Using diseased setts (ratoon stunting, smut)",
+      "Planting on waterlogged sites",
+      "Burning before harvest (nutrient loss)",
+      "Ratooning more than 3 times"
+    ],
+    "best_practices": [
+      "Hot water treat setts for disease-free planting",
+      "Intercrop with beans during establishment",
+      "Leave trash as mulch after harvest"
+    ]
+  },
+  "mango": {
+    "name": "Mango",
+    "planting": {
+      "default": {
+        "hole_width_cm": 90,
+        "hole_depth_cm": 90,
+        "spacing_row_m": 10,
+        "spacing_plant_m": 10,
+        "trees_per_hole": 1
+      },
+      "adjustments": {
+        "low_rainfall": {
+          "hole_width_cm": 100,
+          "hole_depth_cm": 100,
+          "note": "Larger holes for water and nutrient storage"
+        },
+        "high_density": {
+          "spacing_row_m": 6,
+          "spacing_plant_m": 4,
+          "note": "High density requires regular pruning"
+        }
+      }
+    },
+    "fertilizers": {
+      "young_tree": {
+        "type": "NPK 17:17:17",
+        "rate_kg_per_tree": 0.5,
+        "timing": "Twice per year with rains",
+        "application": "Ring around drip line"
+      },
+      "bearing_tree": {
+        "type": "NPK + micronutrients",
+        "rate_kg_per_tree": 2,
+        "timing": "After harvest and before flowering",
+        "application": "Broadcast under canopy"
+      }
+    },
+    "avoid": [
+      "Waterlogged planting sites",
+      "Heavy pruning before flowering",
+      "Excessive nitrogen (vegetative growth, no fruit)",
+      "Harvesting by hitting (fruit damage)"
+    ],
+    "best_practices": [
+      "Prune after harvest for shape",
+      "Spray for anthracnose before flowering",
+      "Harvest at physiological maturity"
+    ]
+  },
+  "avocado": {
+    "name": "Avocado",
+    "planting": {
+      "default": {
+        "hole_width_cm": 60,
+        "hole_depth_cm": 60,
+        "spacing_row_m": 8,
+        "spacing_plant_m": 8,
+        "trees_per_hole": 1
+      },
+      "adjustments": {
+        "clay_soil": {
+          "hole_depth_cm": 45,
+          "note": "Shallower planting; consider raised beds for drainage"
+        },
+        "low_rainfall": {
+          "hole_width_cm": 90,
+          "hole_depth_cm": 90,
+          "note": "Larger holes for water storage"
+        }
+      }
+    },
+    "fertilizers": {
+      "young_tree": {
+        "type": "NPK 10:10:10",
+        "rate_kg_per_tree": 0.25,
+        "timing": "Every 3 months",
+        "application": "Ring around drip line"
+      },
+      "bearing_tree": {
+        "type": "NPK 12:6:22",
+        "rate_kg_per_tree": 1.5,
+        "timing": "Split: before flowering, after fruit set",
+        "application": "Under canopy spread"
+      },
+      "organic": {
+        "type": "Compost/manure",
+        "rate_kg_per_tree": 30,
+        "timing": "Once per year",
+        "application": "Spread under canopy, away from trunk"
+      }
+    },
+    "avoid": [
+      "Waterlogged or poorly drained sites",
+      "Deep planting (root rot)",
+      "Wetting the trunk when irrigating",
+      "Over-fertilizing young trees",
+      "Harvesting before oil content is adequate"
+    ],
+    "best_practices": [
+      "Plant slightly above ground level",
+      "Mulch heavily (15cm deep)",
+      "Ensure pollinator variety nearby"
+    ]
+  },
+  "sorghum": {
+    "name": "Sorghum",
+    "planting": {
+      "default": {
+        "hole_depth_cm": 5,
+        "spacing_row_cm": 60,
+        "spacing_plant_cm": 20,
+        "seeds_per_hole": 3
+      },
+      "adjustments": {
+        "low_rainfall": {
+          "spacing_row_cm": 75,
+          "spacing_plant_cm": 25,
+          "note": "Wider spacing reduces competition for water"
+        }
+      }
+    },
+    "fertilizers": {
+      "basal": {
+        "type": "DAP",
+        "rate_kg_per_acre": 40,
+        "timing": "At planting",
+        "application": "Drill with seed"
+      },
+      "top_dress": {
+        "type": "CAN",
+        "rate_kg_per_acre": 50,
+        "timing": "4-5 weeks after emergence",
+        "application": "Side dress"
+      }
+    },
+    "avoid": [
+      "Waterlogging at any stage",
+      "Bird damage at grain filling (use guards)",
+      "Harvesting too early (grain should be hard)"
+    ],
+    "best_practices": [
+      "Thin to 1 plant per hill after 2 weeks",
+      "Excellent for drought-prone areas",
+      "Good rotation crop after legumes"
+    ]
+  },
+  "millet": {
+    "name": "Millet",
+    "planting": {
+      "default": {
+        "hole_depth_cm": 3,
+        "spacing_row_cm": 40,
+        "spacing_plant_cm": 15,
+        "seeds_per_hole": 5
+      },
+      "adjustments": {
+        "low_rainfall": {
+          "spacing_row_cm": 50,
+          "spacing_plant_cm": 20,
+          "note": "More space allows each plant to scavenge more water"
+        }
+      }
+    },
+    "fertilizers": {
+      "basal": {
+        "type": "DAP",
+        "rate_kg_per_acre": 30,
+        "timing": "At planting",
+        "application": "Mix with seed or band below"
+      },
+      "top_dress": {
+        "type": "CAN",
+        "rate_kg_per_acre": 30,
+        "timing": "3-4 weeks after emergence",
+        "application": "Side dress"
+      }
+    },
+    "avoid": [
+      "Heavy clay soils (poor emergence)",
+      "Waterlogging",
+      "Bird damage at maturity"
+    ],
+    "best_practices": [
+      "Excellent drought tolerance",
+      "Thin to 2-3 plants per hill",
+      "Quick maturing varieties for short rains"
+    ]
+  },
+  "cassava": {
+    "name": "Cassava",
+    "planting": {
+      "default": {
+        "cutting_length_cm": 25,
+        "planting_depth_cm": 10,
+        "planting_angle": "45 degrees",
+        "spacing_row_m": 1,
+        "spacing_plant_m": 1
+      },
+      "adjustments": {
+        "low_rainfall": {
+          "planting_angle": "horizontal",
+          "planting_depth_cm": 15,
+          "note": "Horizontal planting conserves moisture"
+        },
+        "high_rainfall": {
+          "ridge_height_cm": 30,
+          "note": "Plant on ridges to prevent root rot"
+        }
+      }
+    },
+    "fertilizers": {
+      "basal": {
+        "type": "NPK 15:15:15",
+        "rate_kg_per_acre": 50,
+        "timing": "2 weeks after sprouting",
+        "application": "Ring around plant"
+      },
+      "organic": {
+        "type": "Manure or compost",
+        "rate_kg_per_hole": 2,
+        "timing": "Before planting",
+        "application": "Mix into planting hole"
+      }
+    },
+    "avoid": [
+      "Shaded planting sites",
+      "Fresh cuttings from diseased plants (CMD, CBSD)",
+      "Waterlogged conditions",
+      "Harvesting too early (low starch content)"
+    ],
+    "best_practices": [
+      "Use clean certified cuttings",
+      "Weed thoroughly first 3 months",
+      "Harvest 9-12 months after planting"
+    ]
+  },
+  "sweet potato": {
+    "name": "Sweet Potato",
+    "planting": {
+      "default": {
+        "vine_length_cm": 30,
+        "ridge_height_cm": 30,
+        "ridge_width_cm": 60,
+        "spacing_row_cm": 100,
+        "spacing_plant_cm": 30
+      },
+      "adjustments": {
+        "high_rainfall": {
+          "ridge_height_cm": 40,
+          "note": "Higher ridges prevent waterlogging and rot"
+        },
+        "sandy_soil": {
+          "ridge_height_cm": 25,
+          "note": "Lower ridges in sandy soil retain more moisture"
+        }
+      }
+    },
+    "fertilizers": {
+      "basal": {
+        "type": "TSP",
+        "rate_kg_per_acre": 50,
+        "timing": "At ridge making",
+        "application": "Incorporate into ridge"
+      },
+      "organic": {
+        "type": "Manure",
+        "rate_kg_per_acre": 2000,
+        "timing": "Before making ridges",
+        "application": "Spread and incorporate"
+      }
+    },
+    "avoid": [
+      "Excessive nitrogen (all vines, no tubers)",
+      "Weevil-infested vines",
+      "Delaying harvest (weevil damage increases)",
+      "Planting in shade"
+    ],
+    "best_practices": [
+      "Use clean healthy vines from tips",
+      "Harvest 3-4 months after planting",
+      "Lift ridges if cracks appear (tuber exposure)"
+    ]
+  },
+  "onion": {
+    "name": "Onion",
+    "planting": {
+      "default": {
+        "seedbed_to_transplant_weeks": 6,
+        "spacing_row_cm": 30,
+        "spacing_plant_cm": 10,
+        "planting_depth_cm": 2
+      },
+      "adjustments": {
+        "high_rainfall": {
+          "spacing_row_cm": 40,
+          "note": "More space improves air circulation"
+        }
+      }
+    },
+    "fertilizers": {
+      "basal": {
+        "type": "DAP",
+        "rate_kg_per_acre": 100,
+        "timing": "At transplanting",
+        "application": "Band along rows"
+      },
+      "top_dress": {
+        "type": "CAN",
+        "rate_kg_per_acre": 50,
+        "timing": "3 weeks after transplanting",
+        "application": "Side dress"
+      }
+    },
+    "avoid": [
+      "Waterlogging (causes bulb rot)",
+      "Excessive nitrogen late (delays maturity)",
+      "Planting too deep",
+      "Continuous onion cropping"
+    ],
+    "best_practices": [
+      "Stop irrigation when 50% tops fall",
+      "Cure in shade for 2 weeks",
+      "Store in well-ventilated space"
+    ]
+  },
+  "cowpeas": {
+    "name": "Cowpeas",
+    "planting": {
+      "default": {
+        "hole_depth_cm": 5,
+        "spacing_row_cm": 60,
+        "spacing_plant_cm": 20,
+        "seeds_per_hole": 2
+      },
+      "adjustments": {
+        "low_rainfall": {
+          "spacing_row_cm": 75,
+          "spacing_plant_cm": 30,
+          "note": "Wider spacing for water conservation"
+        }
+      }
+    },
+    "fertilizers": {
+      "basal": {
+        "type": "TSP",
+        "rate_kg_per_acre": 40,
+        "timing": "At planting",
+        "application": "Band below seed"
+      },
+      "inoculant": {
+        "type": "Rhizobium",
+        "rate_kg_per_acre": 0.1,
+        "timing": "Coat seeds before planting",
+        "application": "Mix in shade"
+      }
+    },
+    "avoid": [
+      "Excess nitrogen (suppresses nitrogen fixation)",
+      "Waterlogging",
+      "Touching wet plants (disease spread)"
+    ],
+    "best_practices": [
+      "Excellent drought tolerance",
+      "Good for soil improvement",
+      "Harvest leaves as vegetable, pods for grain"
+    ]
+  },
+  "green gram": {
+    "name": "Green Gram (Ndengu)",
+    "planting": {
+      "default": {
+        "hole_depth_cm": 4,
+        "spacing_row_cm": 45,
+        "spacing_plant_cm": 10,
+        "seeds_per_hole": 2
+      },
+      "adjustments": {
+        "low_rainfall": {
+          "spacing_row_cm": 60,
+          "spacing_plant_cm": 15,
+          "note": "Wider spacing for drought areas"
+        }
+      }
+    },
+    "fertilizers": {
+      "basal": {
+        "type": "TSP",
+        "rate_kg_per_acre": 30,
+        "timing": "At planting",
+        "application": "Drill with seed"
+      }
+    },
+    "avoid": [
+      "Heavy clay soils",
+      "Waterlogging (even briefly)",
+      "Continuous cropping"
+    ],
+    "best_practices": [
+      "Fast maturing (60-70 days)",
+      "Good rotation crop",
+      "Harvest when 80% pods mature"
+    ]
+  },
+  "pigeon peas": {
+    "name": "Pigeon Peas",
+    "planting": {
+      "default": {
+        "hole_depth_cm": 5,
+        "spacing_row_m": 1.5,
+        "spacing_plant_cm": 50,
+        "seeds_per_hole": 3
+      },
+      "adjustments": {
+        "intercropping": {
+          "spacing_row_m": 3,
+          "note": "Wider rows to accommodate maize or sorghum"
+        }
+      }
+    },
+    "fertilizers": {
+      "basal": {
+        "type": "TSP",
+        "rate_kg_per_acre": 40,
+        "timing": "At planting",
+        "application": "In planting hole"
+      }
+    },
+    "avoid": [
+      "Waterlogged areas",
+      "High nitrogen application",
+      "Pod borer damage (spray at flowering)"
+    ],
+    "best_practices": [
+      "Deep-rooted, drought tolerant",
+      "Fixes nitrogen for following crops",
+      "Prune for ratoon crop"
+    ]
+  },
+  "coconut": {
+    "name": "Coconut",
+    "planting": {
+      "default": {
+        "hole_width_cm": 100,
+        "hole_depth_cm": 100,
+        "spacing_m": 9,
+        "seednut_age_months": 9
+      },
+      "adjustments": {
+        "coastal_sandy": {
+          "hole_width_cm": 120,
+          "hole_depth_cm": 120,
+          "note": "Larger holes in sandy coastal soils for organic matter"
+        }
+      }
+    },
+    "fertilizers": {
+      "young_palm": {
+        "type": "NPK 12:12:17",
+        "rate_kg_per_palm": 0.5,
+        "timing": "At 1 year, twice yearly",
+        "application": "Circle 50cm from stem"
+      },
+      "bearing_palm": {
+        "type": "NPK + Magnesium",
+        "rate_kg_per_palm": 2,
+        "timing": "Twice yearly with rains",
+        "application": "Spread under canopy"
+      }
+    },
+    "avoid": [
+      "Inland cold areas (needs >20C)",
+      "Waterlogged sites",
+      "Fire near palm base",
+      "Deep planting of seednut"
+    ],
+    "best_practices": [
+      "Cover crop between palms",
+      "Apply husks as mulch",
+      "Harvest every 45-60 days"
+    ]
+  },
+  "cashew": {
+    "name": "Cashew",
+    "planting": {
+      "default": {
+        "hole_width_cm": 60,
+        "hole_depth_cm": 60,
+        "spacing_m": 10,
+        "direct_seeding_depth_cm": 5
+      },
+      "adjustments": {
+        "low_rainfall": {
+          "spacing_m": 12,
+          "note": "Wider spacing in dry areas allows larger root spread"
+        }
+      }
+    },
+    "fertilizers": {
+      "young_tree": {
+        "type": "NPK 15:15:15",
+        "rate_kg_per_tree": 0.3,
+        "timing": "Twice yearly",
+        "application": "Ring at drip line"
+      },
+      "bearing_tree": {
+        "type": "NPK 12:6:22",
+        "rate_kg_per_tree": 1,
+        "timing": "Before rains",
+        "application": "Spread under canopy"
+      }
+    },
+    "avoid": [
+      "Cold highland areas",
+      "Heavy clay soils",
+      "Waterlogging",
+      "Fire damage"
+    ],
+    "best_practices": [
+      "Prune for shape in early years",
+      "Collect fallen nuts promptly",
+      "Dry nuts thoroughly before storage"
+    ]
+  },
+  "macadamia": {
+    "name": "Macadamia",
+    "planting": {
+      "default": {
+        "hole_width_cm": 75,
+        "hole_depth_cm": 75,
+        "spacing_row_m": 8,
+        "spacing_plant_m": 8
+      },
+      "adjustments": {
+        "high_density": {
+          "spacing_row_m": 6,
+          "spacing_plant_m": 4,
+          "note": "High density systems with pruning"
+        }
+      }
+    },
+    "fertilizers": {
+      "young_tree": {
+        "type": "NPK 3:2:1 + Zinc",
+        "rate_kg_per_tree": 0.5,
+        "timing": "Every 3 months",
+        "application": "Spread from trunk to drip line"
+      },
+      "bearing_tree": {
+        "type": "NPK + micronutrients",
+        "rate_kg_per_tree": 3,
+        "timing": "Before flowering, after harvest",
+        "application": "Spread under canopy"
+      }
+    },
+    "avoid": [
+      "Waterlogged sites",
+      "Frost-prone valleys",
+      "Heavy pruning of bearing trees",
+      "Wind-exposed sites"
+    ],
+    "best_practices": [
+      "Windbreaks essential",
+      "Mulch heavily",
+      "Harvest fallen nuts weekly"
+    ]
+  },
+  "papaya": {
+    "name": "Papaya",
+    "planting": {
+      "default": {
+        "hole_width_cm": 50,
+        "hole_depth_cm": 50,
+        "spacing_row_m": 2.5,
+        "spacing_plant_m": 2
+      },
+      "adjustments": {
+        "high_rainfall": {
+          "ridge_height_cm": 30,
+          "note": "Plant on ridges to prevent root rot"
+        }
+      }
+    },
+    "fertilizers": {
+      "monthly": {
+        "type": "NPK 14:14:14 + manure",
+        "rate_kg_per_tree": 0.1,
+        "timing": "Monthly",
+        "application": "Ring around plant"
+      }
+    },
+    "avoid": [
+      "Waterlogged sites",
+      "Planting too deep",
+      "Wind-exposed areas",
+      "Old orchard sites (disease buildup)"
+    ],
+    "best_practices": [
+      "Replace trees every 3-4 years",
+      "Remove male trees once sex shows",
+      "Stake in windy areas"
+    ]
+  },
+  "pineapple": {
+    "name": "Pineapple",
+    "planting": {
+      "default": {
+        "planting_depth_cm": 5,
+        "spacing_row_cm": 90,
+        "spacing_plant_cm": 30,
+        "plants_per_bed": "double row"
+      },
+      "adjustments": {
+        "high_rainfall": {
+          "bed_height_cm": 25,
+          "note": "Raised beds prevent waterlogging"
+        }
+      }
+    },
+    "fertilizers": {
+      "basal": {
+        "type": "TSP",
+        "rate_kg_per_acre": 80,
+        "timing": "Before planting",
+        "application": "Incorporate into beds"
+      },
+      "foliar": {
+        "type": "Urea",
+        "rate_kg_per_acre": 20,
+        "timing": "Monthly during growth",
+        "application": "Spray on leaves"
+      }
+    },
+    "avoid": [
+      "Waterlogging (root rot)",
+      "Planting infected material (heart rot)",
+      "Shade (reduces sweetness)",
+      "Limestone soils (pH >7)"
+    ],
+    "best_practices": [
+      "Force flowering with calcium carbide at 10-12 months",
+      "Mulch between rows",
+      "Ratoon once, then replant"
+    ]
+  }
+}

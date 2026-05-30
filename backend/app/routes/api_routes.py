@@ -1,16 +1,20 @@
 
 import logging
 import asyncio
+import json
+import os
 from flask import Blueprint, request, jsonify
 from ..services.api_integrator import APIIntegrator
 from ..models.predictor import get_predictor
 from ..services.cache_manager import get_cache
+from ..services.crop_guidance import CropGuidanceService
 
 logger = logging.getLogger(__name__)
 
 api = Blueprint('api', __name__)
 api_integrator = APIIntegrator()
 cache = get_cache()
+guidance_service = CropGuidanceService()
 
 
 def parse_location(location_input):
@@ -33,9 +37,12 @@ def parse_location(location_input):
     raise ValueError("Invalid location format")
 
 
-@api.route('/predict', methods=['POST'])
+@api.route('/predict', methods=['POST', 'OPTIONS'])
 def predict():
     """Main prediction endpoint"""
+    if request.method == 'OPTIONS':
+        return '', 200
+        
     try:
         data = request.get_json()
         
@@ -88,7 +95,6 @@ def predict():
     except Exception as e:
         logger.error(f"Prediction error: {e}", exc_info=True)
         return jsonify({'success': False, 'error': 'Internal server error', 'details': str(e)}), 500
-
 
 @api.route('/health', methods=['GET'])
 def health():
@@ -167,4 +173,49 @@ def cache_stats():
         return jsonify({'success': True, 'stats': stats}), 200
     except Exception as e:
         logger.error(f"Cache stats error: {e}")
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+
+@api.route('/crop-guidance', methods=['POST'])
+def get_crop_guidance():
+    """Get detailed planting guidance for a specific crop based on conditions"""
+    try:
+        data = request.get_json()
+
+        if not data:
+            return jsonify({'success': False, 'error': 'No data provided'}), 400
+
+        crop = data.get('crop')
+        conditions = data.get('conditions', {})
+
+        if not crop:
+            return jsonify({'success': False, 'error': 'Crop name is required'}), 400
+
+        logger.info(f"Guidance request - Crop: {crop}, Conditions: {conditions}")
+
+        guidance = guidance_service.get_guidance(crop, conditions)
+
+        if guidance.get('success'):
+            return jsonify(guidance), 200
+        else:
+            return jsonify(guidance), 404
+
+    except Exception as e:
+        logger.error(f"Guidance error: {e}", exc_info=True)
+        return jsonify({'success': False, 'error': 'Internal server error', 'details': str(e)}), 500
+
+
+@api.route('/crop-guidance/<crop_name>', methods=['GET'])
+def get_crop_guidance_simple(crop_name):
+    """Get basic crop guidance without condition adjustments"""
+    try:
+        guidance = guidance_service.get_guidance(crop_name, {})
+
+        if guidance.get('success'):
+            return jsonify(guidance), 200
+        else:
+            return jsonify(guidance), 404
+
+    except Exception as e:
+        logger.error(f"Guidance error: {e}", exc_info=True)
         return jsonify({'success': False, 'error': str(e)}), 500

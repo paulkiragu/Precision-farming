@@ -56,7 +56,7 @@ export const getSoilTypes = async () => {
 
 /**
  * list of predictable crops
- * @returns {Promise<Array>} 
+ * @returns {Promise<Array>}
  */
 export const getCrops = async () => {
   try {
@@ -65,6 +65,29 @@ export const getCrops = async () => {
   } catch (error) {
     console.error('Failed to get crops:', error);
     throw error;
+  }
+};
+
+/**
+ * Get detailed planting guidance for a specific crop
+ * @param {string} crop - Crop name
+ * @param {Object} conditions - Growing conditions (rainfall, temperature, etc.)
+ * @returns {Promise<Object>} Detailed guidance
+ */
+export const getCropGuidance = async (crop, conditions = {}) => {
+  try {
+    const response = await axios.post(`${API_URL}/api/crop-guidance`, {
+      crop,
+      conditions
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Failed to get crop guidance:', error);
+    throw new Error(
+      error.response?.data?.error ||
+      error.message ||
+      'Failed to get crop guidance'
+    );
   }
 };
 
@@ -114,10 +137,3 @@ export const reverseGeocode = async (latitude, longitude) => {
   }
 };
 
-export default {
-  getCropRecommendation,
-  checkHealth,
-  getSoilTypes,
-  getCrops,
-  reverseGeocode
-};

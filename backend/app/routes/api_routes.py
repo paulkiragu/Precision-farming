@@ -4,17 +4,56 @@ import asyncio
 import json
 import os
 from flask import Blueprint, request, jsonify
-from ..services.api_integrator import APIIntegrator
 from ..models.predictor import get_predictor
-from ..services.cache_manager import get_cache
-from ..services.crop_guidance import CropGuidanceService
 
 logger = logging.getLogger(__name__)
 
 api = Blueprint('api', __name__)
-api_integrator = APIIntegrator()
-cache = get_cache()
-guidance_service = CropGuidanceService()
+
+# Lazy load services
+_api_integrator = None
+_cache = None
+_guidance_service = None
+
+def get_api_integrator():
+    """Lazy load API integrator"""
+    global _api_integrator
+    if _api_integrator is None:
+        try:
+            from ..services.api_integrator import APIIntegrator
+            _api_integrator = APIIntegrator()
+        except Exception as e:
+            logger.error(f"Failed to initialize APIIntegrator: {e}")
+            raise
+    return _api_integrator
+
+def get_cache():
+    """Lazy load cache"""
+    global _cache
+    if _cache is None:
+        try:
+            from ..services.cache_manager import get_cache as _get_cache
+            _cache = _get_cache()
+        except Exception as e:
+            logger.error(f"Failed to initialize cache: {e}")
+            raise
+    return _cache
+
+def get_guidance_service():
+    """Lazy load guidance service"""
+    global _guidance_service
+    if _guidance_service is None:
+        try:
+            from ..services.crop_guidance import CropGuidanceService
+            _guidance_service = CropGuidanceService()
+        except Exception as e:
+            logger.error(f"Failed to initialize CropGuidanceService: {e}")
+            # Return a fallback service
+            class FallbackGuidanceService:
+                def get_guidance(self, crop, conditions):
+                    return {'success': False, 'error': f'Guidance unavailable for {crop}'}
+            _guidance_service = FallbackGuidanceService()
+    return _guidance_service
 
 
 def parse_location(location_input):
@@ -82,7 +121,7 @@ def predict():
                 loop = asyncio.new_event_loop()
                 asyncio.set_event_loop(loop)
             
-            enriched_data = loop.run_until_complete(api_integrator.enrich_user_input(user_input))
+            enriched_data = loop.run_until_complete(get_api_integrator().enrich_user_input(user_input))
             
             logger.info("Data enriched successfully")
         except ValueError as e:
@@ -116,7 +155,7 @@ def predict():
 def health():
     """Health check endpoint"""
     try:
-        cache_stats = cache.get_stats()
+        cache_stats = get_cache().get_stats()
         return jsonify({
             'status': 'healthy',
             'service': 'Kenyan Crop Recommendation API',
@@ -173,7 +212,7 @@ def get_crops():
 def clear_cache():
     """Clear API cache"""
     try:
-        cache.clear()
+        get_cache().clear()
         logger.info("Cache cleared via API")
         return jsonify({'success': True, 'message': 'Cache cleared successfully'}), 200
     except Exception as e:
@@ -185,7 +224,7 @@ def clear_cache():
 def cache_stats():
     """Get cache statistics"""
     try:
-        stats = cache.get_stats()
+        stats = get_cache().get_stats()
         return jsonify({'success': True, 'stats': stats}), 200
     except Exception as e:
         logger.error(f"Cache stats error: {e}")
@@ -209,7 +248,7 @@ def get_crop_guidance():
 
         logger.info(f"Guidance request - Crop: {crop}, Conditions: {conditions}")
 
-        guidance = guidance_service.get_guidance(crop, conditions)
+        guidance = get_guidance_service().get_guidance(crop, conditions)
 
         if guidance.get('success'):
             return jsonify(guidance), 200
@@ -225,7 +264,7 @@ def get_crop_guidance():
 def get_crop_guidance_simple(crop_name):
     """Get basic crop guidance without condition adjustments"""
     try:
-        guidance = guidance_service.get_guidance(crop_name, {})
+        guidance = get_guidance_service().get_guidance(crop_name, {})
 
         if guidance.get('success'):
             return jsonify(guidance), 200

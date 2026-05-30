@@ -41,7 +41,7 @@ def parse_location(location_input):
 def predict():
     """Main prediction endpoint"""
     if request.method == 'OPTIONS':
-        return '', 200
+        return '', 204
         
     try:
         data = request.get_json()
@@ -72,21 +72,37 @@ def predict():
         }
         
         try:
-            loop = asyncio.new_event_loop()
-            asyncio.set_event_loop(loop)
+            # Use get_event_loop or create new loop for asyncio operations
+            try:
+                loop = asyncio.get_event_loop()
+                if loop.is_closed():
+                    loop = asyncio.new_event_loop()
+                    asyncio.set_event_loop(loop)
+            except RuntimeError:
+                loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(loop)
+            
             enriched_data = loop.run_until_complete(api_integrator.enrich_user_input(user_input))
-            loop.close()
             
             logger.info("Data enriched successfully")
         except ValueError as e:
             logger.error(f"Validation error: {e}")
             return jsonify({'success': False, 'error': str(e)}), 400
+        except Exception as e:
+            logger.error(f"Enrichment error: {e}", exc_info=True)
+            return jsonify({'success': False, 'error': f'Failed to enrich data: {str(e)}'}), 500
         
-        predictor = get_predictor()
-        result = predictor.predict(enriched_data)
+        try:
+            predictor = get_predictor()
+            if predictor is None:
+                raise ValueError("Predictor initialization failed")
+            result = predictor.predict(enriched_data)
+        except Exception as e:
+            logger.error(f"Predictor error: {e}", exc_info=True)
+            return jsonify({'success': False, 'error': f'Prediction failed: {str(e)}'}), 500
         
         if result.get('success'):
-            logger.info(f"Prediction: {result['prediction']} ({result['confidence']:.2%})")
+            logger.info(f"Prediction: {result['prediction']} ({result.get('confidence', 0):.2%})")
             return jsonify(result), 200
         else:
             logger.error(f"Prediction failed: {result.get('error')}")

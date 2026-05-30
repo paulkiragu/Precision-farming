@@ -244,3 +244,41 @@ class GeocodingService:
     def validate_coordinates(self, lat: float, lon: float) -> bool:
         """Public method to validate coordinates"""
         return self._is_within_kenya(lat, lon)
+    
+    async def get_nearest_kenya_location(self, lat: float, lon: float) -> str:
+        """
+        Find nearest Kenya location for out-of-bounds coordinates
+        Used as fallback for inaccurate WiFi geolocation
+        """
+        try:
+            # Try common nearby cities as fallback based on coordinates
+            nearest_locations = [
+                ('Nairobi', -1.2921, 36.8219),
+                ('Mombasa', -4.0435, 39.6682),
+                ('Kisumu', -0.1022, 34.7617),
+                ('Nakuru', -0.3031, 36.0800),
+                ('Kericho', -0.3689, 35.2892),
+                ('Eldoret', 0.5143, 35.2799),
+            ]
+            
+            # Find closest city
+            min_distance = float('inf')
+            closest_city = None
+            
+            for city, city_lat, city_lon in nearest_locations:
+                # Simple distance calculation
+                distance = ((lat - city_lat)**2 + (lon - city_lon)**2)**0.5
+                if distance < min_distance:
+                    min_distance = distance
+                    closest_city = city
+            
+            if closest_city and min_distance < 5:  # Within ~5 degrees (reasonable for WiFi error)
+                logger.info(f"Found nearest Kenya location: {closest_city} (distance: {min_distance:.2f}°)")
+                return closest_city
+            else:
+                # If too far, return Nairobi as default
+                logger.warning(f"Coordinates far from Kenya ({min_distance:.2f}°), defaulting to Nairobi")
+                return "Nairobi"
+        except Exception as e:
+            logger.error(f"Error finding nearest location: {e}")
+            return "Nairobi"

@@ -193,7 +193,21 @@ class APIIntegrator:
                     logger.info(f"Using provided coordinates: ({lat}, {lon})")
                     return {'lat': lat, 'lon': lon}
                 else:
-                    logger.error(f"Invalid coordinates: ({lat}, {lon})")
+                    # Coordinates outside Kenya (likely WiFi on desktop)
+                    # Try to find nearest location in Kenya
+                    logger.warning(f"Coordinates outside Kenya: ({lat}, {lon}), attempting fallback...")
+                    try:
+                        # Try to reverse geocode and then geocode to get valid Kenya coordinates
+                        nearby_location = await self.geocoding.get_nearest_kenya_location(lat, lon)
+                        if nearby_location:
+                            coords = await self.geocoding.get_coordinates(nearby_location)
+                            if coords:
+                                logger.info(f"Found nearby Kenya location '{nearby_location}': ({coords['lat']}, {coords['lon']})")
+                                return coords
+                    except Exception as e:
+                        logger.warning(f"Fallback geocoding failed: {e}")
+                    
+                    logger.error(f"Could not validate or find fallback for coordinates: ({lat}, {lon})")
                     return None
         
         # Case 2: Location name - need to geocode

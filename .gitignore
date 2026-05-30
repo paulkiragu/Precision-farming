@@ -39,7 +39,6 @@ data/raw/*.csv
 data/external/*.csv
 
 # Models (large files)
-models/trained/*.pkl
 models/experiments/
 
 # Node

@@ -5,8 +5,7 @@ Entry point for the Crop Recommendation API
 
 import os
 import logging
-from flask import Flask
-from flask_cors import CORS
+from flask import Flask, request, jsonify
 
 # Configure logging
 logging.basicConfig(
@@ -27,21 +26,47 @@ def create_app():
         MAX_CONTENT_LENGTH=16 * 1024 * 1024  # 16MB max request size
     )
     
-    # Enable CORS for frontend communication (including mobile access)
-    CORS(app, resources={
-        r"/api/*": {
-            "origins": [
-                "http://localhost:3000", 
-                "http://localhost:5173",
-                "http://localhost:5174",
-                "http://192.168.100.99:5173",
-                "http://192.168.100.99:5174",
-                "*"  # Allow all origins for development
-            ],
-            "methods": ["GET", "POST", "OPTIONS"],
-            "allow_headers": ["Content-Type"]
-        }
-    })
+    # Configure CORS with environment-based origins
+    default_origins = [
+        "http://localhost:3000", 
+        "http://localhost:5173",
+        "http://localhost:5174",
+        "http://192.168.100.99:5173",
+        "http://192.168.100.99:5174",
+        "https://precision-farming-ihij.onrender.com",
+        "https://www.precision-farming-ihij.onrender.com"
+    ]
+    
+    allowed_origins = os.environ.get('ALLOWED_ORIGINS', ','.join(default_origins)).split(',')
+    allowed_origins = [origin.strip() for origin in allowed_origins if origin.strip()]
+    
+    logger.info(f"CORS allowed origins: {allowed_origins}")
+
+    # Handle preflight OPTIONS requests
+    @app.before_request
+    def handle_cors_preflight():
+        if request.method == "OPTIONS":
+            headers = {
+                'Access-Control-Allow-Origin': request.headers.get('Origin', '*'),
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+                'Access-Control-Allow-Headers': request.headers.get('Access-Control-Request-Headers', 'Content-Type, Authorization, Accept'),
+                'Access-Control-Max-Age': '86400'
+            }
+            return '', 200, headers
+
+    # Add CORS headers to all responses
+    @app.after_request
+    def add_cors_headers(response):
+        origin = request.headers.get('Origin')
+        
+        # Check if origin is allowed
+        if origin in allowed_origins:
+            response.headers['Access-Control-Allow-Origin'] = origin
+            response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS'
+            response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization, Accept'
+            response.headers['Access-Control-Max-Age'] = '86400'
+        
+        return response
     
     # Register blueprints
     from .routes.api_routes import api
